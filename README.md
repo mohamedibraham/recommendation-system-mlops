@@ -169,7 +169,7 @@ flowchart LR
 
     subgraph "Outputs"
         P1[/"validated_dataset.parquet\n(KFP Dataset Artifact)"/]
-        M1[["Vertex AI Metrics\n(null rate, duplicates,\nbroken relations)"]]]
+        M1[["Vertex AI Metrics\n(null rate, duplicates,\nbroken relations)"]]
     end
 
     T1 & T2 & T3 & T4 --> C1 & C2 & C3 & C4 & C5 & C6 & C7 & C8 & C9 & C10
