@@ -1,4 +1,4 @@
-# 🚀 XGBRanker E2E MLOps Pipeline — Product Recommendation System
+#  XGBRanker E2E MLOps Pipeline — Product Recommendation System
 
 ![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=flat-square&logo=python)
 ![XGBoost](https://img.shields.io/badge/XGBoost-2.0.0-FF6600?style=flat-square)
@@ -10,7 +10,7 @@
 
 ---
 
-## ⚠️ Project Scope & Disclaimers
+##  Project Scope & Disclaimers
 
 > **Please read carefully before using or referencing this project.**
 
@@ -493,29 +493,3 @@ The train/validation split is temporal (ordered by `session_start_time`) but the
 The current pipeline uses fixed hyperparameters passed at runtime. There is no integration with Vertex AI Vizier, Optuna, or any HPO framework, meaning the reported NDCG@5 is unlikely to be at the model's true optimum.
 
 ---
-
-## 🔭 Future Improvements
-
-- **Weighted Relevance Labels:** Activate the `INTERACTION_WEIGHTS` config (`purchase: 5.0`, `cart: 3.0`, `cancel: -1.0`) to replace binary labels with graded relevance scores, unlocking `rank:map` and `rank:pairwise` objectives for richer training signal.
-
-- **Advanced Candidate Generation:** Replace the category-based top-20 heuristic with a two-tower ANN (Approximate Nearest Neighbor) retrieval model (e.g., using Vertex AI Matching Engine) to generate semantically diverse, cross-category candidates.
-
-- **Rolling Window Features:** Implement the `ROLLING_WINDOWS: [7, 30, 90, 365]` config to engineer time-decay user interaction counts (e.g., `user_purchases_last_30d`, `product_views_last_7d`), adding temporal dynamics to the feature set.
-
-- **Hyperparameter Optimization:** Integrate Vertex AI Vizier or Optuna with a dedicated HPO pipeline stage that runs parallel `train_xgbranker` trials and passes the best config to the main pipeline.
-
-- **Feature Drift Monitoring:** Add a post-registration component that computes PSI (Population Stability Index) and feature distribution statistics between the current and previous feature versions, alerting on significant drift.
-
-- **Online Serving Endpoint:** Add a `deploy_model` component downstream of `register_model` that creates a Vertex AI Endpoint and deploys the registered model, enabling real-time serving with `predict()`.
-
-- **CI/CD Pipeline Integration:** Add GitHub Actions workflows for automated pipeline compilation, Docker image build/push, and pipeline submission on merge to `main`, completing the GitOps loop.
-
-- **True Test Set Isolation:** Materialize a time-partitioned holdout test set in a separate BigQuery table at the start of each pipeline run, ensuring strict temporal separation between train, validation, and test splits.
-
-- **Separate Configuration Files Per Environment:** Introduce `config/dev.yaml`, `config/staging.yaml`, and `config/prod.yaml` with environment-specific BQ dataset names, thresholds, and serving container URIs to support multi-environment deployments.
-
-- **Structured Logging & Alerting:** Replace `print()` and basic `logging` calls with structured JSON logs forwarded to Cloud Logging, with Cloud Monitoring alerts on validation failures and model rejections.
-
----
-
-*Built with ☁️ Google Cloud Platform · 🤖 XGBoost · ⚙️ Kubeflow Pipelines v2*
